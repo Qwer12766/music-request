@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- 페이지의 메타 정보와 스타일, 스크립트 등을 포함할 수 있지만 현재는 비어 있습니다. -->
+</head>
+
+<body>
+    <!-- 음악 검색 폼 -->
+    <form action="methods">
+        <label for="songinfo">음악검색하기</label>
+        <input type="text" id="songinfo" class="whatToSearch" placeholder="검색">
+        <button type="button" onclick="addMusicList()">검색</button>
+    </form>
+</body>
+
+<div class="musicListList">
+
+</div>
+
+<!-- jQuery 라이브러리를 포함합니다. -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
+<!-- 사용자 지정 스크립트 -->
+<script>
+    // 음악 검색 기능을 수행하는 함수
+    function addMusicList() {
+        // 사용자가 입력한 키워드를 가져옵니다.
+        let musicKeyWord = $('#songinfo').val()
+
+        // AJAX를 사용하여 Last.fm API로 음악 정보를 요청합니다.
+        $.ajax({
+            type: 'GET',
+            url: 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + musicKeyWord + '&api_key=c86d9ca03ee90972fd9aedc0304f32f1&format=json',
+            success: function (response) {
+                alert("ajax success")
+                let musicList = response["results"]["trackmatches"]["track"];
+                for (let i = 0; i < musicList.length; i++) {
+                    // 현재는 앨범 이미지 정보를 가져오는 코드가 주석 처리되어 있습니다.
+                    // let albumImg = musicList[i]["image"][0]["#text"]
+                    let albumTitle = musicList[i]["name"]
+                    let albumArtist = musicList[i]["artist"]
+                    console.log(albumTitle, albumArtist) // 검색된 음악의 제목과 아티스트 정보를 콘솔에 출력합니다.
+                }
+            }
+        })
+    }s
+</script>
+
+</html>
