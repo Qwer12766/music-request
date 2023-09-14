@@ -34,7 +34,7 @@
             type: 'GET',
             url: 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + musicKeyWord + '&api_key=c86d9ca03ee90972fd9aedc0304f32f1&format=json',
             success: function (response) {
-                alert("ajax success")
+                alert("검색을 완료하였습니다.")
                 let musicList = response["results"]["trackmatches"]["track"];
                 for (let i = 0; i < musicList.length; i++) {
                     // 현재는 앨범 이미지 정보를 가져오는 코드가 주석 처리되어 있습니다.
