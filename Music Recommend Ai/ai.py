@@ -83,8 +83,49 @@ def musicRecommend(music):
 
     return recommend_list
 
+def musicReauestList(*name):
+    ReauestList = []
+
+    for l in name:
+        n = 0
+        musicReauest = []
+
+        for i in musicRecommend(l):
+            if not i[0] in name:
+                if i[1] > n: 
+                    musicReauest = i
+                    n = i[1]
+
+        if musicReauest != []:
+            a_tt = False
+            for i in range(len(ReauestList)): 
+                if musicReauest[0] == ReauestList[i][0]: 
+                    a_tt = True
+                    ReauestList[i][1] += musicReauest[1]
+                    break
+
+            if not a_tt: ReauestList.append(musicReauest)
+
+    return ReauestList
+
+
+
+'''
+일자별 노래 추천
+곡을 추천하기 위한 데이터 수집
+같은 날짜에 추천한 곡들의 관련도를 높임
+'''
 musicList = listAdd(deyMusic(foundName('후라이의 꿈', '모래 알갱이', '푸르름', '기억을 걷는 시간', '너무너무')))
 musicList = listAdd(deyMusic(foundName('비가 올 때면', '비오는 날', '자격', '서울밤거리', '너무너무')))
 musicList = listAdd(deyMusic(foundName('비가 올 때면', '비오는 날', '비오는 오후', '유서', '너무너무')))
+musicList = listAdd(deyMusic(foundName('비오는 날', '사막에서 꽃을 피우듯', '자격', '나만큼만', '후라이의 꿈')))
+musicList = listAdd(deyMusic(foundName('나만큼만', '우리는 여기 오래 남아', '자격', '서울밤거리', '모래 알갱이')))
+musicList = listAdd(deyMusic(foundName('자유', '푸르름', '그날에 우리', '너무너무')))
+musicList = listAdd(deyMusic(foundName('벚꽃 엔딩', '벚꽃이 지면', '푸르름', '기억을 걷는 시간', '서울밤거리', '후라이의 꿈')))
+musicList = listAdd(deyMusic(foundName('벚꽃 엔딩', '벚꽃이 지면', '모래 알갱이', '헤어지자 말해요', '너무너무', '후라이의 꿈')))
+musicList = listAdd(deyMusic(foundName('후라이의 꿈', '우리 함께', '님이여', '내가 너라면', '너무너무')))
 
-print(musicRecommend('비오는 날'))
+
+
+'''이 곡들을 토대로 곡을 추천'''
+print(musicReauestList('벚꽃 엔딩', '자유', '후라이의 꿈', '내가 너라면'))
